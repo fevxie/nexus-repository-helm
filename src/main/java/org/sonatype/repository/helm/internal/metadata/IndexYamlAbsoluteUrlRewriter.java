@@ -108,10 +108,7 @@ public class IndexYamlAbsoluteUrlRewriter
       URI uri = new URIBuilder(oldUrl).build();
       if (uri.isAbsolute()) {
         String fileName = uri.getPath();
-        // Strip leading slash
-        if (!fileName.isEmpty()) {
-            fileName = fileName.substring(1);
-        }
+        fileName = fileName.startsWith("/") ? fileName.substring(fileName.lastIndexOf("/") + 1) : fileName;
         scalarEvent = new ScalarEvent(scalarEvent.getAnchor(), scalarEvent.getTag(),
             scalarEvent.getImplicit(), fileName, scalarEvent.getStartMark(),
             scalarEvent.getEndMark(), scalarEvent.getStyle());
